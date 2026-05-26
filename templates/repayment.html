@@ -21,8 +21,8 @@
 
 <div class='mb-4'>
 <label class='form-label'>Payment Amount (UGX)</label>
-{{ form.amount(class='form-control fc', placeholder='Enter amount') }}
-<div class='form-text'>Enter the amount you want to pay</div>
+{{ form.amount(class='form-control fc', id='paymentAmount', placeholder='Enter amount', inputmode='numeric', oninput='validateAmount(this)') }}
+<div class='form-text'>Type the amount you want to pay (min UGX 1,000)</div>
 </div>
 
 <div class='mb-4'>
@@ -90,6 +90,12 @@ function toggleProvider() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', toggleProvider);
+function validateAmount(input) {
+    input.value = input.value.replace(/[^0-9.]/g, '');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    toggleProvider();
+});
 </script>
 {% endblock %}

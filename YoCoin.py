@@ -206,9 +206,7 @@ class LoanApplicationForm(FlaskForm):
 
 class RepaymentForm(FlaskForm):
     loan_id = SelectField("Select Loan", coerce=str, validators=[DataRequired()])
-    amount = DecimalField("Payment Amount (UGX)", validators=[
-        DataRequired(), NumberRange(min=1000)
-    ])
+    amount = StringField("Payment Amount (UGX)", validators=[DataRequired()])
     payment_method = SelectField("Payment Method", validators=[DataRequired()],
         choices=[("mobile_money", "Mobile Money (MTN/Airtel)"), ("bank", "Bank Transfer"), ("cash", "Cash Payment")])
     account_number = StringField('Account / Phone', validators=[Optional(), Length(max=50)])
@@ -623,9 +621,16 @@ def repayment():
                 flash("Invalid loan selected", "danger")
                 return redirect(url_for("repayment"))
 
-            payment_amount = float(form.amount.data)
+            try:
+                payment_amount = float(form.amount.data.replace(',', ''))
+            except (ValueError, AttributeError):
+                flash("Invalid payment amount", "danger")
+                return redirect(url_for("repayment"))
             if payment_amount > selected_loan["balance"]:
                 flash("Payment exceeds remaining balance", "warning")
+                return redirect(url_for("repayment"))
+            if payment_amount < 1000:
+                flash("Minimum payment is UGX 1,000", "warning")
                 return redirect(url_for("repayment"))
 
             try:
