@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content='width=device-width,initial-scale=1.0'>
+<title>YoCoin - Presentation</title>
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel=stylesheet>
+<link rel=stylesheet href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap' rel=stylesheet>
+<style>
+:root{--danger:#dc3545;--p:#228B22;--pd:#1a6b1a;--a:#D4A800;--d:#1a1a2e;--g1:#f3f4f6;--g2:#e5e7eb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#e4e8ec 100%);overflow:hidden;height:100vh}
+.slides-wrapper{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center}
+.slide{position:absolute;width:90%;max-width:1100px;height:82vh;background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,0.12);display:none;flex-direction:column;overflow:hidden;opacity:0;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1)}
+.slide.active{display:flex;opacity:1;transform:scale(1)}
+.slide-header{background:linear-gradient(135deg,var(--p),var(--pd));padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.slide-header .logo-group{display:flex;align-items:center;gap:12px}
+.slide-header .logo{width:40px;height:40px;background:radial-gradient(circle at 30% 30%,#f5d742,var(--a),#b8860b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:0.9rem;border:2px solid #b8860b;box-shadow:0 2px 6px rgba(0,0,0,0.15),inset 0 1px 2px rgba(255,255,255,0.3);text-shadow:0 1px 2px rgba(0,0,0,0.2)}
+.slide-header .title{color:#fff;font-weight:700;font-size:1.1rem}
+.slide-header .page-num{color:rgba(255,255,255,0.7);font-size:0.85rem;font-weight:500}
+.slide-body{flex:1;padding:30px 40px;overflow-y:auto;display:flex;flex-direction:column}
+.slide-body::-webkit-scrollbar{width:5px}
+.slide-body::-webkit-scrollbar-track{background:var(--g1);border-radius:10px}
+.slide-body::-webkit-scrollbar-thumb{background:var(--g2);border-radius:10px}
+.slide-title{font-size:1.7rem;font-weight:700;color:var(--d);margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.slide-title i{color:var(--p);font-size:1.5rem}
+.slide-subtitle{color:#666;font-size:0.9rem;margin-bottom:20px;border-left:3px solid var(--p);padding-left:14px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;flex:1}
+.feature-card{background:var(--g1);border-radius:14px;padding:18px;transition:all 0.3s ease;border:1px solid transparent}
+.feature-card:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 8px 20px rgba(34,139,34,0.12)}
+.feature-card .icon{width:42px;height:42px;background:rgba(34,139,34,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:1.2rem;color:var(--p)}
+.feature-card h4{font-size:0.95rem;font-weight:600;color:var(--d);margin-bottom:4px}
+.feature-card p{font-size:0.8rem;color:#555;margin:0;line-height:1.4}
+.stat-cards{display:flex;gap:16px;margin-top:auto}
+.stat-card{flex:1;background:linear-gradient(135deg,var(--d),#2a2a4e);border-radius:14px;padding:16px 20px;text-align:center;color:#fff}
+.stat-card .num{font-size:1.6rem;font-weight:800;color:var(--a)}
+.stat-card .lbl{font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:2px}
+.how-steps{display:flex;gap:12px;flex:1;align-items:center}
+.how-step{flex:1;background:var(--g1);border-radius:14px;padding:18px 16px;text-align:center;position:relative;transition:all 0.3s}
+.how-step:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(34,139,34,0.12)}
+.how-step .step-num{width:32px;height:32px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;margin:0 auto 10px}
+.how-step .step-icon{font-size:1.6rem;color:var(--p);margin-bottom:8px}
+.how-step h4{font-size:0.9rem;font-weight:600;color:var(--d);margin-bottom:4px}
+.how-step p{font-size:0.78rem;color:#555;margin:0;line-height:1.4}
+.how-step .arrow{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:var(--p)}
+.how-step:last-child .arrow{display:none}
+.tech-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tech-item{display:flex;align-items:center;gap:10px;background:var(--g1);border-radius:10px;padding:10px 14px;transition:all 0.3s}
+.tech-item:hover{background:rgba(34,139,34,0.06)}
+.tech-item i{color:var(--p);font-size:1.1rem}
+.tech-item .label{font-weight:600;font-size:0.85rem;color:var(--d)}
+.tech-item .desc{font-size:0.78rem;color:#555}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1}
+.two-col .col{display:flex;flex-direction:column;gap:10px}
+.two-col .col h4{font-size:0.95rem;font-weight:600;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.two-col .col h4 i{color:var(--p)}
+.bullet-list{list-style:none;padding:0}
+.bullet-list li{padding:6px 0 6px 22px;position:relative;font-size:0.82rem;color:#444;line-height:1.4}
+.bullet-list li::before{content:'';position:absolute;left:0;top:11px;width:8px;height:8px;background:var(--p);border-radius:50%}
+.bullet-list li.gold::before{background:var(--a)}
+.highlight-box{background:rgba(34,139,34,0.06);border-left:3px solid var(--p);border-radius:8px;padding:12px 16px;margin:8px 0}
+.highlight-box strong{color:var(--p)}
+.controls{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;background:rgba(26,26,46,0.9);backdrop-filter:blur(10px);padding:10px 24px;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:100}
+.controls button{background:transparent;border:none;color:#fff;font-size:1.2rem;padding:6px 12px;border-radius:8px;transition:all 0.3s;cursor:pointer}
+.controls button:hover{background:rgba(255,255,255,0.1)}
+.controls button:disabled{opacity:0.3;cursor:not-allowed}
+.controls .page-indicator{color:rgba(255,255,255,0.7);font-size:0.85rem;min-width:60px;text-align:center}
+.controls .progress-bar-slide{width:120px;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;overflow:hidden}
+.controls .progress-bar-slide .fill{height:100%;background:var(--a);border-radius:2px;transition:width 0.5s ease}
+.title-slide{background:linear-gradient(135deg,var(--d),#0d0d1a);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px}
+.title-slide .big-logo{width:90px;height:90px;background:radial-gradient(circle at 30% 30%,#f5d742,var(--a),#b8860b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:2rem;border:3px solid #b8860b;box-shadow:0 4px 20px rgba(212,168,0,0.3),inset 0 2px 4px rgba(255,255,255,0.3);text-shadow:0 2px 4px rgba(0,0,0,0.2);margin-bottom:20px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.title-slide h1{font-size:2.8rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#fff,var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.title-slide p{font-size:1.1rem;color:rgba(255,255,255,0.7);max-width:600px;line-height:1.6}
+.title-slide .tagline{color:var(--a);font-weight:600;font-size:0.95rem;margin-bottom:20px;letter-spacing:1px}
+.title-slide .badge-row{display:flex;gap:10px;margin-top:20px}
+.title-slide .badge-row span{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);padding:6px 16px;border-radius:20px;font-size:0.78rem;color:rgba(255,255,255,0.8)}
+.end-slide{background:linear-gradient(135deg,var(--d),#0d0d1a);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px}
+.end-slide h2{font-size:2.2rem;font-weight:700;margin-bottom:12px}
+.end-slide p{font-size:1rem;color:rgba(255,255,255,0.6);max-width:500px;margin-bottom:24px}
+.end-slide .btn-end{background:linear-gradient(135deg,var(--a),#b8860b);border:none;border-radius:12px;padding:14px 40px;font-weight:600;color:var(--d);text-decoration:none;font-size:1rem;transition:all 0.3s}
+.end-slide .btn-end:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(212,168,0,0.3);color:var(--d)}
+.end-slide .contact-info{display:flex;gap:30px;margin-top:20px}
+.end-slide .contact-info div{font-size:0.85rem;color:rgba(255,255,255,0.5)}
+.end-slide .contact-info i{margin-right:6px;color:var(--a)}
+.progress-dots{position:fixed;right:30px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+.progress-dots button{width:10px;height:10px;border-radius:50%;border:2px solid var(--p);background:transparent;cursor:pointer;transition:all 0.3s;padding:0}
+.progress-dots button.active{background:var(--p);transform:scale(1.3)}
+.progress-dots button:hover{transform:scale(1.2)}
+.decorative-circle{position:absolute;border-radius:50%;opacity:0.03;pointer-events:none}
+@media(max-width:768px){
+.slide-body{padding:20px}.feature-grid{grid-template-columns:1fr}.how-steps{flex-direction:column}.two-col{grid-template-columns:1fr}
+.slide-title{font-size:1.3rem}.title-slide h1{font-size:2rem}.controls{gap:10px;padding:8px 16px}
+.controls .progress-bar-slide{width:80px}.progress-dots{right:12px;}
+}
+</style>
+</head>
+<body>
+
+<div class='slides-wrapper' id='slidesWrapper'>
+
+<div class='slide active' id='slide0'>
+<div class='title-slide' style='flex:1'>
+<div class='decorative-circle' style='width:400px;height:400px;background:var(--a);top:-100px;right:-100px'></div>
+<div class='decorative-circle' style='width:300px;height:300px;background:var(--p);bottom:-80px;left:-80px'></div>
+<div class='big-logo'>YC</div>
+<div class='tagline'>BLOCKCHAIN MICROLOAN PLATFORM</div>
+<h1>YoCoin</h1>
+<p>Fast, secure, collateral-free microloans for Uganda — powered by blockchain technology and built for financial inclusion.</p>
+<div class='badge-row'>
+<span><i class='bi bi-shield-check me-1'></i>Blockchain Secured</span>
+<span><i class='bi bi-phone me-1'></i>Mobile First</span>
+<span><i class='bi bi-percent me-1'></i>3.5% Interest</span>
+<span><i class='bi bi-lightning me-1'></i>24h Disbursement</span>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide1'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>01 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-bullseye'></i> What is YoCoin?</div>
+<div class='slide-subtitle'>Blockchain-powered microloan platform providing financial access to unbanked Ugandans</div>
+<div class='two-col'>
+<div class='col'>
+<div class='highlight-box'><strong>Mission:</strong> Empower every Ugandan with access to fair, transparent, and collateral-free credit through decentralized blockchain technology.</div>
+<div class='highlight-box' style='border-left-color:var(--a)'><strong style='color:var(--a)'>Vision:</strong> A financially inclusive Uganda where credit access is a right, not a privilege — enabled by transparent blockchain systems.</div>
+<div class='feature-card' style='margin-top:auto'>
+<div class='icon'><i class='bi bi-globe2'></i></div>
+<h4>Target Market</h4>
+<p>Ugandan citizens with a valid National ID. Serving all regions: Karamoja, Central, Northern, Western, Eastern.</p>
+</div>
+</div>
+<div class='col'>
+<h4><i class='bi bi-star'></i> Core Principles</h4>
+<ul class='bullet-list'>
+<li><strong>Collateral-Free:</strong> No property or guarantees required — only your National ID</li>
+<li><strong>Blockchain Transparency:</strong> Every transaction recorded on an immutable chain with Proof-of-Work</li>
+<li><strong>Credit Building:</strong> Responsible repayment builds your credit score for better rates</li>
+<li><strong>Financial Inclusion:</strong> Designed for the 78% of Ugandans without traditional bank access</li>
+<li><strong>Fair Interest:</strong> Low 3.5% interest rate with no hidden fees</li>
+<li><strong>24-Hour Disbursement:</strong> Funds sent to Mobile Money within one business day</li>
+</ul>
+<div class='stat-cards' style='margin-top:auto'>
+<div class='stat-card'><div class='num'>10K+</div><div class='lbl'>Active Users</div></div>
+<div class='stat-card'><div class='num'>5B+</div><div class='lbl'>UGX Disbursed</div></div>
+<div class='stat-card'><div class='num'>3.5%</div><div class='lbl'>Interest Rate</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide2'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>02 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-grid'></i> Key Features</div>
+<div class='slide-subtitle'>Everything you need to manage loans, build credit, and achieve financial freedom</div>
+<div class='feature-grid' style='grid-template-columns:repeat(auto-fit,minmax(200px,1fr))'>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-person-plus'></i></div>
+<h4>User Registration</h4>
+<p>Register with Full Name, Email, Phone, National ID, and region. Secure bcrypt password hashing.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-credit-card'></i></div>
+<h4>Loan Management</h4>
+<p>Apply, approve, repay, and track loans. Auto-calculated due dates, schedules, and interest.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-shield-check'></i></div>
+<h4>KYC Verification</h4>
+<p>Upload National ID and selfie documents. Admin verification queue with magic byte security checks.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-graph-up'></i></div>
+<h4>Credit Scoring</h4>
+<p>Algorithm-based credit scores updated on repayment. Score tiers determine loan eligibility and rates.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-layers'></i></div>
+<h4>Blockchain Ledger</h4>
+<p>All transactions recorded on a custom Python blockchain with DB persistence and SHA-256 hashing.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-phone'></i></div>
+<h4>Mobile Money</h4>
+<p>MTN & Airtel Mobile Money integration for loan disbursement and repayment processing.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-shield-lock'></i></div>
+<h4>Two-Factor Auth</h4>
+<p>TOTP-based 2FA using authenticator apps. Setup, disable, and verify flows.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-bell'></i></div>
+<h4>Notifications</h4>
+<p>Email and SMS alerts for loan events, payment reminders, KYC updates, and account activity.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-people'></i></div>
+<h4>Referral System</h4>
+<p>Refer friends with unique codes. Earn YoCoin tokens and bonuses for successful referrals.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-calculator'></i></div>
+<h4>Loan Calculator</h4>
+<p>Calculate repayment amounts, interest, and schedules before applying for a loan.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-file-earmark-text'></i></div>
+<h4>Export Statements</h4>
+<p>Download transaction history and loan statements in PDF format for record keeping.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-database-gear'></i></div>
+<h4>Admin Dashboard</h4>
+<p>Full admin panel: user management, KYC queue, audit logs, analytics, reports, and system settings.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide3'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>03 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-arrow-right-circle'></i> How It Works</div>
+<div class='slide-subtitle'>From registration to repayment — a seamless 5-step process</div>
+<div class='how-steps'>
+<div class='how-step'>
+<div class='step-num'>1</div>
+<div class='step-icon'><i class='bi bi-person-plus'></i></div>
+<h4>Register</h4>
+<p>Create your account using your National ID, email, and phone number. Choose your region in Uganda.</p>
+<div class='arrow'><i class='bi bi-chevron-right'></i></div>
+</div>
+<div class='how-step'>
+<div class='step-num'>2</div>
+<div class='step-icon'><i class='bi bi-shield-check'></i></div>
+<h4>Verify KYC</h4>
+<p>Upload your National ID photo and selfie. Admin verifies your documents — typically within 24 hours.</p>
+<div class='arrow'><i class='bi bi-chevron-right'></i></div>
+</div>
+<div class='how-step'>
+<div class='step-num'>3</div>
+<div class='step-icon'><i class='bi bi-cash-stack'></i></div>
+<h4>Apply for Loan</h4>
+<p>Select loan amount and purpose. System calculates interest, due dates, and generates a repayment schedule.</p>
+<div class='arrow'><i class='bi bi-chevron-right'></i></div>
+</div>
+<div class='how-step'>
+<div class='step-num'>4</div>
+<div class='step-icon'><i class='bi bi-send-check'></i></div>
+<h4>Receive Funds</h4>
+<p>Admin approves your loan. Funds are sent to your Mobile Money (MTN / Airtel) within 24 hours.</p>
+<div class='arrow'><i class='bi bi-chevron-right'></i></div>
+</div>
+<div class='how-step'>
+<div class='step-num'>5</div>
+<div class='step-icon'><i class='bi bi-credit-card'></i></div>
+<h4>Repay & Build</h4>
+<p>Make repayments before due dates. On-time payments boost your credit score for better future rates.</p>
+</div>
+</div>
+<div class='highlight-box' style='margin-top:14px;text-align:center'>
+<strong>No collateral needed.</strong> Your National ID and credit history are your assets. Start with as little as UGX 50,000.
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide4'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>04 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-stack'></i> Technology Stack</div>
+<div class='slide-subtitle'>Modern, secure, and scalable architecture built for the African fintech landscape</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-server'></i> Backend & Infrastructure</h4>
+<div class='tech-list'>
+<div class='tech-item'><i class='bi bi-filetype-py'></i><div><div class='label'>Python / Flask</div><div class='desc'>Web framework with Jinja2 templating</div></div></div>
+<div class='tech-item'><i class='bi bi-database'></i><div><div class='label'>MySQL</div><div class='desc'>Relational database with 20+ tables</div></div></div>
+<div class='tech-item'><i class='bi bi-link'></i><div><div class='label'>Flask-MySQLdb</div><div class='desc'>MySQL connector with DictCursor</div></div></div>
+<div class='tech-item'><i class='bi bi-shield'></i><div><div class='label'>bcrypt</div><div class='desc'>Password hashing and security</div></div></div>
+<div class='tech-item'><i class='bi bi-speedometer2'></i><div><div class='label'>Flask-Limiter</div><div class='desc'>Rate limiting on sensitive endpoints</div></div></div>
+<div class='tech-item'><i class='bi bi-file-text'></i><div><div class='label'>WTForms</div><div class='desc'>Form validation with CSRF protection</div></div></div>
+</div>
+</div>
+<div class='col'>
+<h4><i class='bi bi-palette'></i> Frontend & UX</h4>
+<div class='tech-list'>
+<div class='tech-item'><i class='bi bi-bootstrap'></i><div><div class='label'>Bootstrap 5</div><div class='desc'>Responsive UI framework</div></div></div>
+<div class='tech-item'><i class='bi bi-filetype-html'></i><div><div class='label'>Jinja2</div><div class='desc'>Server-side template rendering</div></div></div>
+<div class='tech-item'><i class='bi bi-boxes'></i><div><div class='label'>Bootstrap Icons</div><div class='desc'>Icon library for UI elements</div></div></div>
+<div class='tech-item'><i class='bi bi-google'></i><div><div class='label'>Inter Font</div><div class='desc'>Clean, modern typography</div></div></div>
+<div class='tech-item'><i class='bi bi-phone'></i><div><div class='label'>Mobile-First</div><div class='desc'>Responsive across all devices</div></div></div>
+<div class='tech-item'><i class='bi bi-gem'></i><div><div class='label'>CSS Variables</div><div class='desc'>Dynamic theming system</div></div></div>
+</div>
+</div>
+</div>
+<div class='stat-cards' style='margin-top:auto'>
+<div class='stat-card'><div class='num'>Python/Flask</div><div class='lbl'>Backend Framework</div></div>
+<div class='stat-card'><div class='num'>MySQL</div><div class='lbl'>Database Engine</div></div>
+<div class='stat-card'><div class='num'>SHA-256</div><div class='lbl'>Blockchain Hash</div></div>
+<div class='stat-card'><div class='num'>Bootstrap 5</div><div class='lbl'>Frontend Framework</div></div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide5'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>05 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-link-45deg'></i> Blockchain Integration</div>
+<div class='slide-subtitle'>Custom Python blockchain with Proof-of-Work consensus and MySQL database persistence</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-cpu'></i> Blockchain Architecture</h4>
+<ul class='bullet-list'>
+<li>Custom <strong>Python blockchain</strong> implementation with Block and Chain classes</li>
+<li><strong>SHA-256</strong> hashing for block integrity verification</li>
+<li><strong>Proof-of-Work</strong> consensus algorithm with adjustable difficulty</li>
+<li>Each block stores <strong>timestamp, transactions, proof, previous hash</strong></li>
+<li>Chain validity verified through <strong>hash chain traversal</strong></li>
+<li><strong>Genesis block</strong> created automatically on first startup</li>
+</ul>
+<h4 style='margin-top:12px'><i class='bi bi-database'></i> DB Persistence</h4>
+<ul class='bullet-list'>
+<li>Blockchain state persisted in <code>blockchain_blocks</code> and <code>blockchain_transactions</code> MySQL tables</li>
+<li>Full chain <strong>reconstructed from DB</strong> on application startup</li>
+<li>New blocks and transactions <strong>atomically committed</strong> to both chain and database</li>
+<li>All loan transactions recorded as <strong>immutable blockchain entries</strong></li>
+</ul>
+</div>
+<div class='col'>
+<div class='feature-card' style='background:var(--d);color:#fff;border:none'>
+<div class='icon' style='background:rgba(212,168,0,0.2);color:var(--a)'><i class='bi bi-diagram-3'></i></div>
+<h4 style='color:#fff'>Transaction Lifecycle</h4>
+<p style='color:rgba(255,255,255,0.7)'>Every loan disbursement, repayment, and transfer creates a new transaction that gets mined into the next block.</p>
+</div>
+<div class='feature-card'>
+<div class='icon' style='background:rgba(212,168,0,0.15);color:var(--a)'><i class='bi bi-shield'></i></div>
+<h4>Immutability</h4>
+<p>Once a block is added to the chain, it cannot be altered without re-mining all subsequent blocks — ensuring complete transaction integrity.</p>
+</div>
+<div class='feature-card'>
+<div class='icon'><i class='bi bi-eye'></i></div>
+<h4>Transparency</h4>
+<p>All transactions are verifiable on the chain. Users can view their complete transaction history with block confirmations.</p>
+</div>
+<div class='feature-card'>
+<div class='icon' style='background:rgba(212,168,0,0.15);color:var(--a)'><i class='bi bi-arrow-repeat'></i></div>
+<h4>Chain Validation</h4>
+<p>Built-in <code>verify_chain()</code> method validates block hashes and proof-of-work across the entire chain on every operation.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide6'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>06 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-shield-lock'></i> Security & KYC</div>
+<div class='slide-subtitle'>Enterprise-grade security with rigorous identity verification for regulatory compliance</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-lock'></i> Security Features</h4>
+<ul class='bullet-list'>
+<li><strong>Password Security:</strong> bcrypt hashing with strength validation (uppercase, lowercase, digits, special chars, 8+ length)</li>
+<li><strong>Rate Limiting:</strong> Flask-Limiter on login, registration, password reset endpoints</li>
+<li><strong>Account Lockout:</strong> Auto-lock after 5 failed login attempts with timers</li>
+<li><strong>Two-Factor Auth:</strong> TOTP-based 2FA using authenticator apps (Google Authenticator, Authy)</li>
+<li><strong>Session Security:</strong> HTTP-only cookies, SameSite=Lax, 24-hour expiry, secure flag in production</li>
+<li><strong>CSRF Protection:</strong> WTForms CSRF tokens on all forms</li>
+<li><strong>Input Sanitization:</strong> SQL injection prevention, XSS filtering on all inputs</li>
+<li><strong>Suspicious Activity:</strong> Real-time monitoring and alerting system</li>
+</ul>
+</div>
+<div class='col'>
+<h4><i class='bi bi-file-check'></i> KYC Process</h4>
+<ul class='bullet-list'>
+<li><strong>Document Upload:</strong> National ID photo + selfie image upload</li>
+<li><strong>Format Support:</strong> PNG, JPG, JPEG, PDF (2MB limit)</li>
+<li><strong>Magic Byte Validation:</strong> File type verification beyond extension checking</li>
+<li><strong>Admin Verification Queue:</strong> Dedicated queue for admin KYC review</li>
+<li><strong>Status Tracking:</strong> Users can check KYC status: Pending / Verified / Rejected</li>
+<li><strong>Verification Limits:</strong> Max 5 upload attempts before manual review required</li>
+<li><strong>Auto-Reminders:</strong> Email/SMS reminders for incomplete KYC submissions</li>
+</ul>
+<div class='highlight-box' style='margin-top:8px'>
+<strong>24-hour verification</strong> target for KYC documents. Users cannot apply for loans until KYC is verified.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide7'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>07 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-cash-stack'></i> Loan Management</div>
+<div class='slide-subtitle'>Complete loan lifecycle from application through approval to repayment</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-send'></i> Loan Application Process</h4>
+<ul class='bullet-list'>
+<li>User selects <strong>loan amount and purpose</strong> (Business, Education, Agriculture, Medical, Personal, Asset Finance)</li>
+<li>System <strong>auto-calculates interest</strong> based on credit score tier and amount</li>
+<li><strong>Repayment schedule</strong> generated on approval with due dates and installment amounts</li>
+<li><strong>Loan calculator</strong> available to preview costs before applying</li>
+<li><strong>Multiple loans</strong> allowed only if existing loans are in good standing</li>
+</ul>
+<h4 style='margin-top:12px'><i class='bi bi-clock-history'></i> Loan States</h4>
+<ul class='bullet-list'>
+<li><strong>Pending</strong> — Awaiting admin approval</li>
+<li><strong>Approved</strong> — Ready for disbursement</li>
+<li><strong>Active</strong> — Disbursed and being repaid</li>
+<li><strong>Defaulted</strong> — Overdue beyond grace period</li>
+<li><strong>Completed</strong> — Fully repaid</li>
+<li><strong>Rejected</strong> — Application declined by admin</li>
+</ul>
+</div>
+<div class='col'>
+<h4><i class='bi bi-credit-card'></i> Repayment Features</h4>
+<ul class='bullet-list'>
+<li><strong>Flexible repayment</strong> via Mobile Money (MTN / Airtel)</li>
+<li><strong>Auto-generated schedules</strong> with installment breakdowns</li>
+<li><strong>Due date reminders</strong> via Email and SMS (5 days before due date)</li>
+<li><strong>Grace period</strong> before default marking</li>
+<li><strong>Partial repayments</strong> supported at any time</li>
+<li><strong>Payment history</strong> viewable in transaction history</li>
+</ul>
+<div class='highlight-box' style='margin-top:8px'>
+<strong>3.5% base interest rate</strong> — reduced for high credit score tiers. YoCoin token holders get additional rate discounts.
+</div>
+<div class='feature-card' style='margin-top:8px'>
+<div class='icon' style='background:rgba(212,168,0,0.15);color:var(--a)'><i class='bi bi-bar-chart'></i></div>
+<h4>Default Management</h4>
+<p>Automated default check runs on every request. Defaulted loans trigger notifications, credit score penalties, and admin alerts.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide8'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>08 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-graph-up'></i> Credit Scoring System</div>
+<div class='slide-subtitle'>Dynamic algorithm-based credit scores that reward responsible borrowing behavior</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-calculator'></i> Score Calculation</h4>
+<ul class='bullet-list'>
+<li><strong>Base Score:</strong> 300 points starting point for all new users</li>
+<li><strong>On-Time Payments:</strong> Significant score increase for each on-time repayment</li>
+<li><strong>Late Payments:</strong> Score deductions proportional to delay duration</li>
+<li><strong>Defaults:</strong> Major score penalty for loan defaults</li>
+<li><strong>Loan History:</strong> Longer positive history yields higher scores</li>
+<li><strong>Referral Activity:</strong> Small bonus for successful referrals</li>
+<li><strong>Score Tiers:</strong> Bronze, Silver, Gold, Platinum with increasing benefits</li>
+</ul>
+<div class='stat-cards' style='margin-top:auto'>
+<div class='stat-card'><div class='num'>300</div><div class='lbl'>Starting Score</div></div>
+<div class='stat-card'><div class='num'>300-850</div><div class='lbl'>Score Range</div></div>
+<div class='stat-card'><div class='num'>4</div><div class='lbl'>Score Tiers</div></div>
+</div>
+</div>
+<div class='col'>
+<h4><i class='bi bi-trophy'></i> Score Tiers & Benefits</h4>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px'>
+<div class='feature-card' style='padding:12px;background:linear-gradient(135deg,#cd7f32,#e8a956);color:#fff;border:none'>
+<div style='font-weight:700;font-size:0.9rem'>Bronze</div>
+<div style='font-size:0.75rem;opacity:0.9'>300-499</div>
+<div style='font-size:0.72rem;opacity:0.8'>Base loan amounts</div>
+</div>
+<div class='feature-card' style='padding:12px;background:linear-gradient(135deg,#a8a8a8,#d0d0d0);color:var(--d);border:none'>
+<div style='font-weight:700;font-size:0.9rem'>Silver</div>
+<div style='font-size:0.75rem;opacity:0.8'>500-649</div>
+<div style='font-size:0.72rem;opacity:0.8'>+20% loan limit</div>
+</div>
+<div class='feature-card' style='padding:12px;background:linear-gradient(135deg,var(--a),#f0d050);color:var(--d);border:none'>
+<div style='font-weight:700;font-size:0.9rem'>Gold</div>
+<div style='font-size:0.75rem;opacity:0.8'>650-799</div>
+<div style='font-size:0.72rem;opacity:0.8'>+40% limit, 2.5% rate</div>
+</div>
+<div class='feature-card' style='padding:12px;background:linear-gradient(135deg,#e5e4e2,#ffffff);color:var(--d);border:2px solid var(--a)'>
+<div style='font-weight:700;font-size:0.9rem'>Platinum</div>
+<div style='font-size:0.75rem;opacity:0.8'>800-850</div>
+<div style='font-size:0.72rem;opacity:0.8'>+60% limit, 2% rate</div>
+</div>
+</div>
+<div class='highlight-box' style='margin-top:8px'>
+<strong>Auto-recalculation:</strong> Credit scores are automatically recalculated after every repayment event. Admins can also trigger manual recalculations.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide9'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>09 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-gear'></i> Admin Panel</div>
+<div class='slide-subtitle'>Comprehensive administration tools for managing the entire platform</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-speedometer2'></i> Admin Capabilities</h4>
+<ul class='bullet-list'>
+<li><strong>Dashboard:</strong> Overview of platform metrics — active loans, pending KYC, user growth, revenue</li>
+<li><strong>User Management:</strong> View, search, edit, suspend, or delete users</li>
+<li><strong>Loan Management:</strong> Approve/reject applications, monitor active loans, track defaults</li>
+<li><strong>KYC Queue:</strong> Review documents, verify or reject with feedback</li>
+<li><strong>Mobile Money:</strong> Process disbursements, verify payments, reconcile transactions</li>
+<li><strong>Support Tickets:</strong> View and respond to user support requests</li>
+<li><strong>Notifications:</strong> Send bulk notifications to users</li>
+</ul>
+</div>
+<div class='col'>
+<h4><i class='bi bi-bar-chart'></i> Analytics & Tools</h4>
+<ul class='bullet-list'>
+<li><strong>Reports:</strong> Generate detailed loan performance and user analytics reports</li>
+<li><strong>Audit Logs:</strong> Complete audit trail of all admin actions with IP addresses and user agents</li>
+<li><strong>System Settings:</strong> Configure interest rates, loan limits, KYC requirements</li>
+<li><strong>Pagination:</strong> All admin lists paginated at 20 items per page</li>
+<li><strong>Search:</strong> Full-text search across users, transactions, and loans</li>
+<li><strong>Data Export:</strong> Export platform data for external reporting</li>
+</ul>
+<div class='highlight-box' style='margin-top:8px'>
+<strong>Audit Trail:</strong> Every admin action — approvals, rejections, verifications, modifications — is logged with timestamp, IP, and user agent for full accountability.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide10'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>10 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-phone'></i> Mobile Money Integration</div>
+<div class='slide-subtitle'>Seamless integration with Uganda's leading mobile money providers</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-send'></i> Disbursement Flow</h4>
+<ul class='bullet-list'>
+<li>Admin approves loan → System creates disbursement request</li>
+<li>Funds sent via <strong>MTN Mobile Money</strong> or <strong>Airtel Money</strong> API</li>
+<li>Real-time status tracking: Pending → Processing → Completed / Failed</li>
+<li>Automatic retry on failure (up to 3 attempts)</li>
+<li>Transaction reference stored for reconciliation</li>
+<li>User notified via SMS when funds are available</li>
+</ul>
+<div class='highlight-box'>
+<strong>24-hour disbursement</strong> SLA. Most payments processed within 2-4 hours during business days.
+</div>
+</div>
+<div class='col'>
+<h4><i class='bi bi-arrow-left-right'></i> Repayment Flow</h4>
+<ul class='bullet-list'>
+<li>User sends repayment via <strong>MTN / Airtel Mobile Money</strong> to YoCoin paybill</li>
+<li>System detects incoming payment and <strong>auto-matches to user account</strong></li>
+<li>Payment applied to outstanding loan balance</li>
+<li><strong>Real-time confirmation</strong> via SMS and in-app notification</li>
+<li>Partial repayments accepted and applied proportionally</li>
+<li>Repayment history synced with blockchain</li>
+</ul>
+<div class='highlight-box' style='border-left-color:var(--a)'>
+<strong style='color:var(--a)'>Mobile Money Providers:</strong> MTN Uganda & Airtel Uganda — covering 99% of Uganda's mobile money users.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide11'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>11 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-bell'></i> Notifications & User Experience</div>
+<div class='slide-subtitle'>Multi-channel communication system keeping users informed at every step</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-envelope'></i> Email Notifications</h4>
+<ul class='bullet-list'>
+<li><strong>SMTP-based</strong> email delivery with HTML templates</li>
+<li><strong>Loan Events:</strong> Application received, approved, disbursed, repayment due, repaid, defaulted</li>
+<li><strong>KYC Updates:</strong> Document received, verified, rejected with reason</li>
+<li><strong>Account Events:</strong> Registration, password reset, 2FA changes, security alerts</li>
+<li><strong>Payment Reminders:</strong> 5 days before due date automatic reminders</li>
+<li><strong>Referral Notifications:</strong> New referral signed up, bonus earned</li>
+</ul>
+</div>
+<div class='col'>
+<h4><i class='bi bi-chat-dots'></i> SMS & In-App</h4>
+<ul class='bullet-list'>
+<li><strong>SMS via Africa's Talking API</strong> for critical notifications</li>
+<li><strong>Real-time in-app notifications</strong> with bell icon badge counter</li>
+<li><strong>Notification detail modal</strong> for viewing full message content</li>
+<li><strong>Unread count</strong> displayed on nav bar badge</li>
+<li><strong>Mark all read</strong> functionality</li>
+<li><strong>Auto-fetch</strong> every 2 minutes via API polling</li>
+</ul>
+<div class='feature-card' style='margin-top:auto'>
+<div class='icon' style='background:rgba(212,168,0,0.15);color:var(--a)'><i class='bi bi-clock'></i></div>
+<h4>5-Day Reminder System</h4>
+<p>Automated 5-day pre-due-date reminders via email and SMS ensure users never miss a repayment.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide12'>
+<div class='slide-header'>
+<div class='logo-group'><div class='logo'>YC</div><span class='title'>YoCoin</span></div>
+<span class='page-num'>12 / 12</span>
+</div>
+<div class='slide-body'>
+<div class='slide-title'><i class='bi bi-journal-code'></i> Database & Architecture</div>
+<div class='slide-subtitle'>Robust MySQL schema with 20+ tables powering the entire platform</div>
+<div class='two-col'>
+<div class='col'>
+<h4><i class='bi bi-table'></i> Core Tables</h4>
+<ul class='bullet-list'>
+<li><strong>users</strong> — All user accounts, profiles, and preferences</li>
+<li><strong>loans</strong> — Loan applications, approvals, and active loans</li>
+<li><strong>repayments</strong> — Repayment transactions and schedules</li>
+<li><strong>transactions</strong> — All financial transactions ledger</li>
+<li><strong>kyc_documents</strong> — Uploaded KYC documents and status</li>
+<li><strong>credit_scores</strong> — User credit score history and tiers</li>
+<li><strong>notifications</strong> — Email, SMS, and in-app notifications</li>
+<li><strong>blockchain_blocks</strong> — Blockchain block storage</li>
+<li><strong>blockchain_transactions</strong> — Blockchain transaction records</li>
+<li><strong>audit_logs</strong> — Admin action audit trail</li>
+</ul>
+</div>
+<div class='col'>
+<h4><i class='bi bi-diagram-2'></i> Additional Tables</h4>
+<ul class='bullet-list'>
+<li><strong>referrals</strong> — Referral tracking and rewards</li>
+<li><strong>mobile_money_transactions</strong> — MM disbursement/repayment records</li>
+<li><strong>support_tickets</strong> — User support requests</li>
+<li><strong>user_sessions</strong> — Active session management</li>
+<li><strong>security_questions</strong> — Password reset security questions</li>
+<li><strong>password_reset_tokens</strong> — Reset token management</li>
+<li><strong>two_factor_auth</strong> — 2FA configuration per user</li>
+<li><strong>suspicious_activity</strong> — Security event logs</li>
+<li><strong>failed_logins</strong> — Login attempt tracking</li>
+<li><strong>system_settings</strong> — Configurable platform settings</li>
+</ul>
+</div>
+</div>
+<div class='stat-cards' style='margin-top:auto'>
+<div class='stat-card'><div class='num'>20+</div><div class='lbl'>Database Tables</div></div>
+<div class='stat-card'><div class='num'>60+</div><div class='lbl'>API Endpoints</div></div>
+<div class='stat-card'><div class='num'>14</div><div class='lbl'>HTML Templates</div></div>
+<div class='stat-card'><div class='num'>15+</div><div class='lbl'>Python Modules</div></div>
+</div>
+</div>
+</div>
+
+<div class='slide' id='slide13'>
+<div class='end-slide' style='flex:1'>
+<div class='decorative-circle' style='width:350px;height:350px;background:var(--a);top:-80px;left:-80px'></div>
+<div class='decorative-circle' style='width:250px;height:250px;background:var(--p);bottom:-60px;right:-60px'></div>
+<div class='logo' style='width:60px;height:60px;font-size:1.4rem;margin-bottom:16px;animation:bounce 2s ease-in-out infinite'>YC</div>
+<h2>Ready to Transform<br>Financial Access in Uganda?</h2>
+<p>YoCoin is more than a loan platform — it's a financial inclusion movement. Blockchain-powered, community-driven, and built for every Ugandan.</p>
+<a href='https://github.com/anomalyco/YoCoin' class='btn-end' target='_blank'><i class='bi bi-github me-2'></i>View on GitHub</a>
+<div class='contact-info'>
+<div><i class='bi bi-envelope'></i> admin@yocoin.ug</div>
+<div><i class='bi bi-globe'></i> YoCoin Platform</div>
+<div><i class='bi bi-shield'></i> Blockchain Secured</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class='controls'>
+<button id='prevSlide' disabled><i class='bi bi-chevron-left'></i></button>
+<div class='progress-bar-slide'><div class='fill' id='progressFill' style='width:7.1%'></div></div>
+<span class='page-indicator' id='pageIndicator'>1 / 14</span>
+<button id='nextSlide'><i class='bi bi-chevron-right'></i></button>
+</div>
+
+<div class='progress-dots' id='progressDots'></div>
+
+<script>
+(function() {
+var slides = document.querySelectorAll('.slide');
+var total = slides.length;
+var current = 0;
+var prevBtn = document.getElementById('prevSlide');
+var nextBtn = document.getElementById('nextSlide');
+var pageIndicator = document.getElementById('pageIndicator');
+var progressFill = document.getElementById('progressFill');
+var dotsContainer = document.getElementById('progressDots');
+
+for (var i = 0; i < total; i++) {
+var dot = document.createElement('button');
+dot.dataset.index = i;
+dot.addEventListener('click', function() { goTo(parseInt(this.dataset.index)); });
+if (i === 0) dot.classList.add('active');
+dotsContainer.appendChild(dot);
+}
+
+function updateDots() {
+var dots = dotsContainer.querySelectorAll('button');
+for (var i = 0; i < dots.length; i++) {
+dots[i].classList.toggle('active', i === current);
+}
+}
+
+function goTo(index) {
+if (index < 0 || index >= total || index === current) return;
+slides[current].classList.remove('active');
+slides[current].style.display = 'none';
+current = index;
+slides[current].style.display = 'flex';
+requestAnimationFrame(function() {
+slides[current].classList.add('active');
+});
+prevBtn.disabled = current === 0;
+nextBtn.disabled = current === total - 1;
+pageIndicator.textContent = (current + 1) + ' / ' + total;
+progressFill.style.width = ((current + 1) / total * 100) + '%';
+updateDots();
+}
+
+function next() { if (current < total - 1) goTo(current + 1); }
+function prev() { if (current > 0) goTo(current - 1); }
+
+nextBtn.addEventListener('click', next);
+prevBtn.addEventListener('click', prev);
+
+document.addEventListener('keydown', function(e) {
+if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+else if (e.key === 'End') { e.preventDefault(); goTo(total - 1); }
+});
+
+var touchStartX = 0;
+var touchEndX = 0;
+document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e) {
+touchEndX = e.changedTouches[0].screenX;
+var diff = touchStartX - touchEndX;
+if (Math.abs(diff) > 50) { if (diff > 0) next(); else prev(); }
+});
+
+var dots = dotsContainer.querySelectorAll('button');
+for (var i = 0; i < dots.length; i++) {
+dots[i].addEventListener('mouseenter', function() { this.style.borderColor = 'var(--a)'; });
+dots[i].addEventListener('mouseleave', function() { if (!this.classList.contains('active')) this.style.borderColor = 'var(--p)'; });
+}
+})();
+</script>
+</body>
+</html>
